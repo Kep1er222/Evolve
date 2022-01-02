@@ -24,8 +24,8 @@ const techs = {
         reqs: {},
         grant: ['primitive',1],
         cost: {
-            Lumber(){ return global.race['kindling_kindred'] || global.race['smoldering'] ? 0 : 5; },
-            Stone(){ return global.race['kindling_kindred'] || global.race['smoldering'] ? 5 : 0; }
+            Lumber(){ return global.race['kindling_kindred'] || global.race['smoldering'] ? 0 : 10; },
+            Stone(){ return global.race['kindling_kindred'] || global.race['smoldering'] ? 10 : 0; }
         },
         action(){
             if (payCosts($(this)[0])){
@@ -99,8 +99,8 @@ const techs = {
         reqs: { primitive: 2 },
         grant: ['primitive',3],
         cost: {
-            Lumber(){ return 8; },
-            Stone(){ return 10; }
+            Lumber(){ return 10; },
+            Stone(){ return 15; }
         },
         effect: loc('tech_sundial_effect'),
         action(){

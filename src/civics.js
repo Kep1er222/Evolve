@@ -167,11 +167,11 @@ export function commisionGarrison(){
 
 export function govRelationFactor(id){
     if (global.race['truepath']){
-        if (global.civic.foreign[`gov${id}`].hstl < 10){
-            return 1 + (10 - global.civic.foreign[`gov${id}`].hstl) / 40;
+        if (global.civic.foreign[`gov${id}`].hstl < 15){
+            return 1 + (15 - global.civic.foreign[`gov${id}`].hstl) / 60;
         }
-        else if (global.civic.foreign[`gov${id}`].hstl > 60){
-            return 1 - (-60 + global.civic.foreign[`gov${id}`].hstl) / 160;
+        else if (global.civic.foreign[`gov${id}`].hstl > 65){
+            return 1 - (-65 + global.civic.foreign[`gov${id}`].hstl) / 140;
         }
     }
     return 1;
@@ -433,26 +433,37 @@ export function foreignGov(){
             filters: {
                 military(m,i){
                     if (global.civic.foreign[`gov${i}`].spy >= 1){
-                        if (m < 50){
+                        // V.Weak 50
+                        if (m < 51){
                             return loc('civics_gov_v_weak');
                         }
+                        // Weak 51-74
                         else if (m < 75){
                             return loc('civics_gov_weak');
                         }
-                        else if (m > 300){
-                            return loc('civics_gov_superpower');
+                        // Below Average 75-99
+                        else if (m < 100){
+                            return loc('civics_gov_below_average');
                         }
-                        else if (m > 200){
-                            return loc('civics_gov_v_strong');
+                        // Average 100-124
+                        else if (m < 125){
+                            return loc('civics_gov_average');
                         }
-                        else if (m > 160){
-                            return loc('civics_gov_strong');
-                        }
-                        else if (m > 125){
+                        // Above Average 125-159
+                        else if (m < 160){
                             return loc('civics_gov_above_average');
                         }
+                        // Strong 160-199
+                        else if (m < 200){
+                            return loc('civics_gov_strong');
+                        }
+                        // V.Strong 200-249
+                        else if (m < 200){
+                            return loc('civics_gov_v_strong');
+                        }
+                        // Superpower 250-300
                         else {
-                            return loc('civics_gov_average');
+                            return loc('civics_gov_superpower');
                         }
                     }
                     else {
@@ -460,38 +471,52 @@ export function foreignGov(){
                     }
                 },
                 relation(r){
+                    // Hated 0-19%
                     if (r > 80){
                         return loc('civics_gov_hated');
                     }
-                    else if (r > 60){
+                    // Hostile 20-34%
+                    else if (r > 65){
                         return loc('civics_gov_hostile');
                     }
-                    else if (r > 40){
+                    // Unfriendly 35-49%
+                    else if (r > 50){
                         return loc('civics_gov_poor');
                     }
-                    else if (r > 25){
+                    // Neutral 50-69%
+                    else if (r > 30){
                         return loc('civics_gov_neutral');
                     }
-                    else if (r > 10){
+                    // Liked 70-84%
+                    else if (r > 15){
                         return loc('civics_gov_liked');
                     }
+                    // Friendly 85-100%
                     else {
                         return loc('civics_gov_good');
                     }
                 },
                 eco(e,i){
                     if (global.civic.foreign[`gov${i}`].spy >= 2){
+                        // Weak 0-59
                         if (e < 60){
                             return loc('civics_gov_weak');
                         }
+                        // Recession 60-79
                         else if (e < 80){
                             return loc('civics_gov_recession');
                         }
-                        else if (e > 120){
-                            return loc('civics_gov_strong');
-                        }
-                        else {
+                        // Average 80-119
+                        else if (e < 120){
                             return loc('civics_gov_average');
+                        }
+                        // Above Average 120-139
+                        else if (e < 140){
+                            return loc('civics_gov_above_average');
+                        }
+                        // Strong 140+
+                        else {
+                            return loc('civics_gov_strong');
                         }
                     }
                     else {
@@ -500,18 +525,23 @@ export function foreignGov(){
                 },
                 discontent(r,i){
                     if (global.civic.foreign[`gov${i}`].spy >= 3){
+                        // None 0%
                         if (r <= 0){
                             return loc('civics_gov_none');
                         }
+                        // Low 1-29%
                         else if (r < 30){
                             return loc('civics_gov_low');
                         }
+                        // Medium 30-59%
                         else if (r < 60){
                             return loc('civics_gov_medium');
                         }
+                        // High 60-89%
                         else if (r < 90){
                             return loc('civics_gov_high');
                         }
+                        // Extreme 90-100%
                         else {
                             return loc('civics_gov_extreme');
                         }
@@ -670,7 +700,7 @@ function trainSpy(i){
         let cost = spyCost(i)
         if (global.resource.Money.amount >= cost){
             global.resource.Money.amount -= cost;
-            let time = 300;
+            let time = 240;
             if (global.tech['spy'] >= 3 && global.city['boot_camp']){
                 time -= global.city['boot_camp'].count * 10;
                 if (time < 10){
@@ -686,9 +716,9 @@ function trainSpy(i){
 }
 
 function govPrice(gov){
-    let price = global.civic.foreign[`gov${gov}`].eco * 15384;
-    price *= 1 + global.civic.foreign[`gov${gov}`].hstl * 1.6 / 100;
-    price *= 1 - global.civic.foreign[`gov${gov}`].unrest * 0.25 / 100;
+    let price = global.civic.foreign[`gov${gov}`].eco * 15000;
+    price *= 1 + global.civic.foreign[`gov${gov}`].hstl * 1.7 / 100;
+    price *= 1 - global.civic.foreign[`gov${gov}`].unrest * 0.3 / 100;
     return +price.toFixed(0);
 }
     

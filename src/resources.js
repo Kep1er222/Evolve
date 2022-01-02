@@ -167,16 +167,16 @@ export const supplyValue = {
 
 export function craftCost(){
     let costs = {
-        Plywood: [{ r: 'Lumber', a: 100 }],
-        Brick: [{ r: 'Cement', a: 40 }],
-        Wrought_Iron: [{ r: 'Iron', a: 80 }],
-        Sheet_Metal: [{ r: 'Aluminium', a: 120 }],
+        Plywood: [{ r: 'Lumber', a: 50 }],
+        Brick: [{ r: 'Cement', a: 25 }],
+        Wrought_Iron: [{ r: 'Iron', a: 60 }],
+        Sheet_Metal: [{ r: 'Aluminium', a: 100 }],
         Mythril: [{ r: 'Iridium', a: 100 },{ r: 'Alloy', a: 250 }],
         Aerogel: [{ r: 'Graphene', a: 2500 },{ r: 'Infernite', a: 50 }],
         Nanoweave: [{ r: 'Nano_Tube', a: 1000 },{ r: 'Vitreloy', a: 40 }],
         Scarletite: [{ r: 'Iron', a: 250000 },{ r: 'Adamantite', a: 7500 },{ r: 'Orichalcum', a: 500 }],
         Quantium: [{ r: 'Nano_Tube', a: 1000 },{ r: 'Graphene', a: 1000 },{ r: 'Elerium', a: 25 }],
-        Thermite: [{ r: 'Iron', a: 180 },{ r: 'Aluminium', a: 60 }],
+        Thermite: [{ r: 'Iron', a: 120 },{ r: 'Aluminium', a: 50 }],
     };
     if (global.race['wasteful']){
         let rate = 1 + traits.wasteful.vars()[0] / 100;
