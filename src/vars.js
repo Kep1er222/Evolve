@@ -931,7 +931,37 @@ if (convertVersion(global['version']) < 102005){
     }
 }
 
-global['version'] = '1.2.5';
+if (convertVersion(global['version']) < 102006){
+    if (global.race['artifical']){
+        if (global.race['calm']){
+            if (global.resource.hasOwnProperty('Zen')){
+                global.resource.Zen.display = true;
+            }
+            global.city['meditation'] = { count: 0 };
+        }
+        if (global.race['cannibalize']){
+            global.city['s_alter'] = {
+                count: 0,
+                rage: 0,
+                mind: 0,
+                regen: 0,
+                mine: 0,
+                harvest: 0,
+            };
+        }
+        if (global.race['magnificent']){
+            global.city['shrine'] = {
+                count: 0,
+                morale: 0,
+                metal: 0,
+                know: 0,
+                tax: 0
+            };
+        }
+    }
+}
+
+global['version'] = '1.2.6';
 delete global['revision'];
 delete global['beta'];
 
@@ -1608,8 +1638,14 @@ if (typeof global.civic.foreign.gov2['name'] !== "undefined" && global.civic.for
     global.civic.foreign.gov2.name.s1 = 'Divine';
 }
 
-if (!global.race['evil'] && global.race['immoral']){
+if (!global.race['evil'] && global.race['immoral'] && global.race !== undefined && global.race.species !== 'wendigo'){
     delete global.race['immoral'];
+}
+else if (global.race !== undefined && global.race.species === 'wendigo'){
+    const date = new Date();
+    if (global.settings.hasOwnProperty('boring') && !global.settings.boring && date.getMonth() === 11 && date.getDate() >= 17){
+        global.race['immoral'] = 3;
+    }
 }
 
 {
